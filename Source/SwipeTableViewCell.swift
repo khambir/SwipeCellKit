@@ -184,16 +184,14 @@ open class SwipeTableViewCell: UITableViewCell {
             if actionsView.expanded == true, let expandedAction = actionsView.expandableAction  {
                 perform(action: expandedAction)
             } else {
-                let targetOffset = targetCenter(active: state.isActive)
+                let targetOffset = bounds.midX
                 let distance = targetOffset - center.x
                 let normalizedVelocity = velocity.x * scrollRatio / distance
-
+                
                 animate(toOffset: targetOffset, withInitialVelocity: normalizedVelocity) { _ in
-                    if self.state == .center {
-                        self.reset()
-                    }
+                    self.reset()
                 }
-
+                
                 if !state.isActive {
                     notifyEditingStateChange(active: false)
                 }
